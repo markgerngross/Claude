@@ -9,6 +9,17 @@
  * window.buildFigureSVG(moveId) -> SVG-String mit eingebetteter Animation.
  */
 
+// Echte Video-Demos je Uebung (optional). Liegen unter videos/ und werden
+// im Player ueber einen Umschalter angezeigt. Fehlt ein Eintrag, gibt es nur
+// die animierte Figur.
+// Hinweis: Diese Demos liegen aktuell auf dem Generierungs-CDN. Fuer echtes
+// Self-Hosting (offline) per scripts/fetch-videos.sh herunterladen und hier
+// auf 'videos/<name>.mp4' umstellen.
+window.MOVE_VIDEO = {
+  wolkenhaende: 'https://d8j0ntlcm91z4.cloudfront.net/user_2wdygT3KA6xz6tIdT2x1QLr2URr/hf_20260630_090207_50f7b54e-ea96-4345-b406-c12caba3900e.mp4',
+  atem: 'https://d8j0ntlcm91z4.cloudfront.net/user_2wdygT3KA6xz6tIdT2x1QLr2URr/hf_20260630_090245_47a862e7-1f1c-4b85-896f-328869fac5d8.mp4',
+};
+
 (function () {
   // Farben
   const C = {

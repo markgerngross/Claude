@@ -311,6 +311,7 @@ function startSession(dayNumber) {
   function paint() {
     const b = day.blocks[idx];
     const m = window.MOVES[b.move];
+    const vid = (window.MOVE_VIDEO || {})[b.move];
     const frac = remaining / b.seconds;
     const dots = day.blocks.map((_, i) =>
       `<i class="${i < idx ? 'passed' : i === idx ? 'active' : ''}"></i>`).join('');
@@ -320,7 +321,11 @@ function startSession(dayNumber) {
         <span class="pill">Tag ${dayNumber} · Uebung ${idx + 1}/${day.blocks.length}</span>
         <div class="phase-name">${m.name}</div>
         <div class="phase-origin">${m.origin} · ${m.focus}</div>
-        <div class="figure-wrap">${window.buildFigureSVG(b.move)}</div>
+        <div class="figure-wrap" id="figWrap">
+          ${window.buildFigureSVG(b.move)}
+          ${vid ? `<video class="figure-video" src="${vid}" loop muted playsinline preload="metadata"></video>` : ''}
+        </div>
+        ${vid ? `<button class="btn ghost small vid-toggle" id="toggleVid">&#9654; Echte Person zeigen</button>` : ''}
         <div class="timer-ring">${drawRing(frac)}<div class="time">${fmtTime(remaining)}</div></div>
         <div class="progress-dots">${dots}</div>
         <div class="breath"><b>Atem:</b> ${m.breathing}</div>
@@ -334,6 +339,14 @@ function startSession(dayNumber) {
 
     $('#pp').addEventListener('click', () => { paused = !paused; paint(); });
     $('#skip').addEventListener('click', nextBlock);
+    const tv = $('#toggleVid');
+    if (tv) tv.addEventListener('click', () => {
+      const wrap = $('#figWrap');
+      const video = wrap.querySelector('.figure-video');
+      const on = wrap.classList.toggle('show-video');
+      tv.innerHTML = on ? '✎ Animierte Figur zeigen' : '▶ Echte Person zeigen';
+      if (video) { if (on) { video.play().catch(() => {}); } else { video.pause(); } }
+    });
     $('#quit').addEventListener('click', () => {
       clearInterval(sessionTimer);
       render();

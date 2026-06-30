@@ -14,6 +14,9 @@ Offline-Nutzung.
 - **28-Tage-Programm** in vier Wochen: Grundlagen → Aufbau → Fluss → Meisterung
 - **Geführte Sessions** mit Timer, Atem-Anleitung und echten Stuhl-Tai-Chi-Übungen
   (Wolkenhände, Mähne des Wildpferds teilen, Affen abwehren, Goldener Hahn …)
+- **Animierte Übungs-Figur** zu jeder Übung (sitzende Person, die die Bewegung
+  vormacht) – plus optionale **echte Video-Demos** für ausgewählte Übungen
+  (umschaltbar im Player über „Echte Person zeigen")
 - **Virtueller Trainingspartner** für den ganzen Monat, der sich täglich meldet
 - **Fortschritt**: erledigte Tage, Tage-Serie (Streak), Minuten,
   geschätzter Kalorienverbrauch und ein Gewichts-Tagebuch
@@ -87,6 +90,22 @@ sudo systemctl enable --now stuhl-taichi
 
 Für Zugriff von unterwegs empfiehlt sich ein Reverse-Proxy mit HTTPS
 (z. B. Caddy oder nginx) vor dem Node-Prozess.
+
+## Echte Video-Demos (optional)
+
+Für einzelne Schlüsselübungen gibt es zusätzlich zur animierten Figur ein echtes
+Video. Im Auslieferungszustand verweisen diese Videos auf eine externe Adresse,
+damit sie im Test sofort laufen. Für **echtes Self-Hosting** (offline, ohne
+externe Abhängigkeit) lädst du sie auf deinem Server lokal herunter:
+
+```bash
+bash scripts/fetch-videos.sh
+```
+
+Das speichert die Videos in `public/videos/`. Danach in `public/figure.js` die
+`MOVE_VIDEO`-Einträge auf die lokalen Pfade (`videos/<name>.mp4`) umstellen und
+`cp public/videos/*.mp4 docs/videos/` ausführen. Neue Übungs-Videos lassen sich
+jederzeit ergänzen.
 
 ## Daten & Backup
 

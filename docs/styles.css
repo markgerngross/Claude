@@ -173,6 +173,10 @@ h2 { font-size: 17px; margin: 22px 0 10px; }
   max-width: 280px;
 }
 .figure-svg { display: block; width: 100%; height: auto; }
+.figure-video { display: none; width: 100%; height: auto; border-radius: 14px; }
+.figure-wrap.show-video .figure-svg { display: none; }
+.figure-wrap.show-video .figure-video { display: block; }
+.vid-toggle { width: auto; display: inline-block; margin: 0 auto 12px; }
 .timer-ring { position: relative; width: 160px; height: 160px; margin: 4px auto 6px; }
 .timer-ring svg { transform: rotate(-90deg); }
 .timer-ring .time {
