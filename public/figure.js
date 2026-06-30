@@ -1,135 +1,171 @@
 /*
- * Animierte Uebungs-Figur (reines SVG + SMIL-Animation).
+ * Detaillierte, animierte Uebungs-Figur (SVG + SMIL).
  *
- * Zeichnet eine sitzende Figur und bewegt je nach Uebung die passenden
- * Gelenke (Arme, Unterarme, Beine, Rumpf, Kopf). Laeuft offline, ohne Videos,
- * ohne externe Dateien – die Bewegung wird im Browser berechnet.
+ * Eine sitzende Person mit gebeugten Knien, Kleidung (Hemd/Hose/Schuhe),
+ * Hautton an Kopf/Unterarmen/Haenden und ruhigem Gesicht. Je nach Uebung
+ * werden Arme, Unterarme, Beine, Rumpf und Kopf bewegt; dazu eine sanfte,
+ * durchgehende Atembewegung. Laeuft offline, ohne Videos/externe Dateien.
  *
  * window.buildFigureSVG(moveId) -> SVG-String mit eingebetteter Animation.
  */
 
 (function () {
-  // Drehpunkt (Gelenk) je Koerperteil in viewBox-Koordinaten.
-  const PIVOT = {
-    upperArmR: [120, 86], forearmR: [120, 116],
-    upperArmL: [80, 86], forearmL: [80, 116],
-    thighR: [116, 160], shinR: [122, 196],
-    thighL: [84, 160], shinL: [78, 196],
-    torso: [100, 84], head: [100, 74],
+  // Farben
+  const C = {
+    skin: '#e6b48c', skinShade: '#d49a6e',
+    shirt: '#4f6d97', shirtShade: '#3f587b',
+    trouser: '#3b4756', shoe: '#262b33',
+    hair: '#4a3b30', chair: '#caa86f', chairShade: '#b08e54',
+    face: '#3a2c22',
   };
 
-  // Animations-Rezepte je Uebung:
-  //   [teil, winkelA, winkelB, dauerSek, phase('a'|'b')]
-  // Gegenphasige Teile (links/rechts) erzeugen das Wechselspiel.
+  // Drehpunkte (Gelenke) in viewBox-Koordinaten.
+  const PIVOT = {
+    upperArmR: [122, 80], forearmR: [122, 110],
+    upperArmL: [78, 80], forearmL: [78, 110],
+    thighR: [112, 150], shinR: [122, 178],
+    thighL: [88, 150], shinL: [78, 178],
+    torso: [100, 82], head: [100, 64],
+  };
+
+  // Animations-Rezepte je Uebung:  [teil, winkelA, winkelB, dauerSek, phase]
   const ANIM = {
     atem: [
-      ['forearmR', 0, 72, 5, 'a'], ['forearmL', 0, -72, 5, 'a'],
-      ['upperArmR', 0, -10, 5, 'a'], ['upperArmL', 0, 10, 5, 'a'],
+      ['forearmR', 0, 74, 5, 'a'], ['forearmL', 0, -74, 5, 'a'],
+      ['upperArmR', 0, 14, 5, 'a'], ['upperArmL', 0, -14, 5, 'a'],
     ],
-    nacken: [['head', -16, 16, 4, 'a']],
+    nacken: [['head', -15, 15, 4, 'a']],
     schulterkreisen: [
-      ['upperArmR', -14, 14, 3, 'a'], ['upperArmL', 14, -14, 3, 'a'],
-      ['forearmR', 0, 12, 3, 'a'], ['forearmL', 0, -12, 3, 'a'],
+      ['upperArmR', -12, 14, 3, 'a'], ['upperArmL', 12, -14, 3, 'a'],
+      ['forearmR', 0, 14, 3, 'a'], ['forearmL', 0, -14, 3, 'a'],
     ],
     wolkenhaende: [
-      ['torso', -10, 10, 4, 'a'],
-      ['upperArmR', 55, 75, 4, 'a'], ['forearmR', 60, 80, 4, 'a'],
-      ['upperArmL', -55, -75, 4, 'b'], ['forearmL', -60, -80, 4, 'b'],
+      ['torso', -10, 10, 4.2, 'a'],
+      ['upperArmR', 48, 66, 4.2, 'a'], ['forearmR', 58, 82, 4.2, 'a'],
+      ['upperArmL', -48, -66, 4.2, 'b'], ['forearmL', -58, -82, 4.2, 'b'],
     ],
     wildpferd: [
-      ['upperArmR', -55, -5, 4, 'a'], ['forearmR', -15, -45, 4, 'a'],
-      ['upperArmL', 55, 5, 4, 'b'], ['forearmL', 15, 45, 4, 'b'],
+      ['upperArmR', -48, 2, 4, 'a'], ['forearmR', -18, -44, 4, 'a'],
+      ['upperArmL', 48, -2, 4, 'b'], ['forearmL', 18, 44, 4, 'b'],
     ],
     knie: [
-      ['forearmR', 12, 85, 3.5, 'a'], ['upperArmR', 0, 18, 3.5, 'a'],
-      ['forearmL', -12, -85, 3.5, 'b'], ['upperArmL', 0, -18, 3.5, 'b'],
+      ['forearmR', 10, 82, 3.5, 'a'], ['upperArmR', 0, 22, 3.5, 'a'],
+      ['forearmL', -10, -82, 3.5, 'b'], ['upperArmL', 0, -22, 3.5, 'b'],
     ],
     affe: [
-      ['upperArmR', 12, -28, 3.5, 'a'], ['forearmR', 40, 80, 3.5, 'a'],
-      ['upperArmL', -12, 28, 3.5, 'b'], ['forearmL', -40, -80, 3.5, 'b'],
+      ['upperArmR', 10, -26, 3.5, 'a'], ['forearmR', 42, 82, 3.5, 'a'],
+      ['upperArmL', -10, 26, 3.5, 'b'], ['forearmL', -42, -82, 3.5, 'b'],
     ],
     spatz: [
-      ['upperArmR', 40, 58, 4.5, 'a'], ['forearmR', 80, 38, 4.5, 'a'],
-      ['upperArmL', -40, -58, 4.5, 'a'], ['forearmL', -80, -38, 4.5, 'a'],
+      ['upperArmR', 34, 56, 4.5, 'a'], ['forearmR', 80, 38, 4.5, 'a'],
+      ['upperArmL', -34, -56, 4.5, 'a'], ['forearmL', -80, -38, 4.5, 'a'],
     ],
     hahn: [
-      ['thighR', 0, -34, 4, 'a'], ['shinR', 0, 18, 4, 'a'], ['forearmR', 0, 68, 4, 'a'],
-      ['thighL', 0, -34, 4, 'b'], ['shinL', 0, -18, 4, 'b'], ['forearmL', 0, -68, 4, 'b'],
+      ['thighR', 0, -32, 4, 'a'], ['shinR', 0, 16, 4, 'a'], ['forearmR', 0, 66, 4, 'a'],
+      ['thighL', 0, 32, 4, 'b'], ['shinL', 0, -16, 4, 'b'], ['forearmL', 0, -66, 4, 'b'],
     ],
     tiger: [
       ['torso', -15, 15, 4.5, 'a'],
-      ['upperArmR', 18, 42, 4.5, 'a'], ['upperArmL', -18, -42, 4.5, 'a'],
+      ['upperArmR', 16, 40, 4.5, 'a'], ['upperArmL', -16, -40, 4.5, 'a'],
     ],
     fersen: [
-      ['shinR', 0, -16, 2.2, 'a'], ['shinL', 0, -16, 2.2, 'b'],
+      ['shinR', 0, -15, 2.2, 'a'], ['shinL', 0, 15, 2.2, 'b'],
     ],
     ausklang: [
-      ['upperArmR', -58, -6, 6, 'a'], ['forearmR', 30, 5, 6, 'a'],
-      ['upperArmL', 58, 6, 6, 'a'], ['forearmL', -30, -5, 6, 'a'],
+      ['upperArmR', -54, -4, 6, 'a'], ['forearmR', 28, 4, 6, 'a'],
+      ['upperArmL', 54, 4, 6, 'a'], ['forearmL', -28, -4, 6, 'a'],
     ],
   };
 
-  function animTag(part, a, b, dur, phase) {
+  function rotTag(part, a, b, dur, phase) {
     const [px, py] = PIVOT[part];
-    const v1 = `${a} ${px} ${py}`;
-    const v2 = `${b} ${px} ${py}`;
+    const v1 = `${a} ${px} ${py}`, v2 = `${b} ${px} ${py}`;
     const vals = phase === 'b' ? `${v2};${v1};${v2}` : `${v1};${v2};${v1}`;
     return `<animateTransform attributeName="transform" attributeType="XML"
-      type="rotate" dur="${dur}s" repeatCount="indefinite"
+      type="rotate" dur="${dur}s" repeatCount="indefinite" additive="sum"
       calcMode="spline" keyTimes="0;0.5;1"
       keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values="${vals}"/>`;
   }
 
-  // Sammelt die Animations-Tags je Koerperteil fuer eine Uebung.
+  // Sanfte, durchgehende Atembewegung (kleiner Hub) fuer den Rumpf.
+  const breatheTag =
+    `<animateTransform attributeName="transform" attributeType="XML"
+      type="translate" dur="4.5s" repeatCount="indefinite" additive="sum"
+      calcMode="spline" keyTimes="0;0.5;1"
+      keySplines="0.4 0 0.6 1;0.4 0 0.6 1" values="0 0;0 -1.6;0 0"/>`;
+
   function animsFor(moveId) {
     const out = {};
     (ANIM[moveId] || []).forEach(([part, a, b, dur, phase]) => {
-      out[part] = animTag(part, a, b, dur, phase);
+      out[part] = (out[part] || '') + rotTag(part, a, b, dur, phase);
     });
     return out;
   }
 
   window.buildFigureSVG = function (moveId) {
     const A = animsFor(moveId);
-    const limb = '#3f7d6b';
-    const hand = '#c9a24b';
 
     return `
     <svg viewBox="0 0 200 250" class="figure-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <!-- Stuhl -->
-      <g stroke="#d8cba6" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.9">
-        <path d="M68 168 V96 M132 168 V96 M68 96 H132"/>
-        <path d="M64 168 H136 M74 168 V232 M126 168 V232"/>
+      <defs>
+        <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#dfe8e3"/><stop offset="1" stop-color="#cdd9d2"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Boden -->
+      <ellipse cx="100" cy="232" rx="78" ry="12" fill="url(#floor)"/>
+
+      <!-- Stuhl (hinter der Figur) -->
+      <g fill="${C.chair}">
+        <rect x="63" y="150" width="74" height="12" rx="3"/>            <!-- Sitzflaeche -->
+        <rect x="66" y="86" width="9" height="66" rx="4"/>              <!-- Rueckenlehne links -->
+        <rect x="125" y="86" width="9" height="66" rx="4"/>             <!-- Rueckenlehne rechts -->
+        <rect x="66" y="86" width="68" height="9" rx="4"/>              <!-- Lehnen-Querbalken -->
+      </g>
+      <g fill="${C.chairShade}">
+        <rect x="70" y="160" width="9" height="62" rx="4"/>            <!-- vorderes Bein links -->
+        <rect x="121" y="160" width="9" height="62" rx="4"/>           <!-- vorderes Bein rechts -->
       </g>
 
-      <!-- Beine (hinter dem Rumpf) -->
-      <g stroke="${limb}" stroke-width="13" fill="none" stroke-linecap="round">
-        <g>${A.thighL || ''}<line x1="84" y1="160" x2="78" y2="196"/>
-          <g>${A.shinL || ''}<line x1="78" y1="196" x2="76" y2="226"/>
-            <ellipse cx="72" cy="228" rx="11" ry="6" fill="${limb}" stroke="none"/></g></g>
-        <g>${A.thighR || ''}<line x1="116" y1="160" x2="122" y2="196"/>
-          <g>${A.shinR || ''}<line x1="122" y1="196" x2="124" y2="226"/>
-            <ellipse cx="128" cy="228" rx="11" ry="6" fill="${limb}" stroke="none"/></g></g>
+      <!-- Beine (Hosen) -->
+      <g stroke="${C.trouser}" stroke-width="16" fill="none" stroke-linecap="round">
+        <g>${A.thighL || ''}<line x1="88" y1="150" x2="78" y2="178"/>
+          <g>${A.shinL || ''}<line x1="78" y1="178" x2="80" y2="214"/>
+            <path d="M70 216 q-6 2 -2 8 h18 q3 -6 -4 -9 z" fill="${C.shoe}" stroke="none"/></g></g>
+        <g>${A.thighR || ''}<line x1="112" y1="150" x2="122" y2="178"/>
+          <g>${A.shinR || ''}<line x1="122" y1="178" x2="120" y2="214"/>
+            <path d="M130 216 q6 2 2 8 h-18 q-3 -6 4 -9 z" fill="${C.shoe}" stroke="none"/></g></g>
       </g>
 
-      <!-- Rumpf-Gruppe (dreht sich bei Drehuebungen, Arme + Kopf folgen) -->
-      <g>${A.torso || ''}
-        <path d="M80 84 Q100 77 120 84 L116 162 Q100 169 84 162 Z" fill="${limb}"/>
+      <!-- Rumpf-Gruppe: Hemd, Kopf, Arme. Dreht bei Drehuebungen; atmet immer. -->
+      <g>${A.torso || ''}${breatheTag}
+        <!-- Hemd / Oberkoerper -->
+        <path d="M78 80 Q100 72 122 80 L118 152 Q100 158 82 152 Z" fill="${C.shirt}"/>
+        <path d="M82 152 Q100 158 118 152 L117 156 Q100 161 83 156 Z" fill="${C.shirtShade}"/>
 
-        <!-- Kopf -->
+        <!-- Hals + Kopf -->
         <g>${A.head || ''}
-          <line x1="100" y1="80" x2="100" y2="70" stroke="${limb}" stroke-width="11"/>
-          <circle cx="100" cy="52" r="20" fill="${limb}"/>
+          <rect x="94" y="58" width="12" height="14" rx="5" fill="${C.skin}"/>
+          <circle cx="100" cy="46" r="19" fill="${C.skin}"/>
+          <path d="M82 44 a18 18 0 0 1 36 0 q-6 -9 -18 -9 t-18 9 z" fill="${C.hair}"/>
+          <circle cx="93" cy="46" r="1.8" fill="${C.face}"/>
+          <circle cx="107" cy="46" r="1.8" fill="${C.face}"/>
+          <path d="M95 53 q5 3 10 0" stroke="${C.face}" stroke-width="1.4" fill="none" stroke-linecap="round"/>
         </g>
 
-        <!-- Arme als Ober-/Unterarm-Gruppen -->
-        <g stroke="${limb}" stroke-width="11" fill="none" stroke-linecap="round">
-          <g>${A.upperArmL || ''}<line x1="80" y1="86" x2="80" y2="116"/>
-            <g>${A.forearmL || ''}<line x1="80" y1="116" x2="80" y2="146"/>
-              <circle cx="80" cy="150" r="7" fill="${hand}" stroke="none"/></g></g>
-          <g>${A.upperArmR || ''}<line x1="120" y1="86" x2="120" y2="116"/>
-            <g>${A.forearmR || ''}<line x1="120" y1="116" x2="120" y2="146"/>
-              <circle cx="120" cy="150" r="7" fill="${hand}" stroke="none"/></g></g>
+        <!-- Arme: Oberarm (Hemd) + Unterarm (Haut, hochgekrempelt) + Hand -->
+        <g fill="none" stroke-linecap="round">
+          <g>${A.upperArmL || ''}
+            <line x1="78" y1="80" x2="78" y2="110" stroke="${C.shirt}" stroke-width="13"/>
+            <g>${A.forearmL || ''}
+              <line x1="78" y1="110" x2="78" y2="138" stroke="${C.skin}" stroke-width="11"/>
+              <circle cx="78" cy="142" r="7.5" fill="${C.skin}" stroke="none"/></g></g>
+          <g>${A.upperArmR || ''}
+            <line x1="122" y1="80" x2="122" y2="110" stroke="${C.shirt}" stroke-width="13"/>
+            <g>${A.forearmR || ''}
+              <line x1="122" y1="110" x2="122" y2="138" stroke="${C.skin}" stroke-width="11"/>
+              <circle cx="122" cy="142" r="7.5" fill="${C.skin}" stroke="none"/></g></g>
         </g>
       </g>
     </svg>`;
