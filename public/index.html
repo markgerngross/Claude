@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#2f5d50" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Stuhl Tai-Chi" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <title>Stuhl Tai-Chi · 28 Tage</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">&#127786;</span>
+        <span class="brand-text">Stuhl Tai-Chi</span>
+      </div>
+      <div id="streakBadge" class="streak-badge" hidden>&#128293; <span id="streakNum">0</span></div>
+    </header>
+
+    <main id="view"><!-- wird per JS gefuellt --></main>
+
+    <nav class="tabbar">
+      <button class="tab" data-view="heute"><span>&#127807;</span>Heute</button>
+      <button class="tab" data-view="programm"><span>&#128197;</span>Programm</button>
+      <button class="tab" data-view="fortschritt"><span>&#128202;</span>Fortschritt</button>
+      <button class="tab" data-view="partner"><span>&#129496;</span>Partner</button>
+    </nav>
+  </div>
+
+  <script src="program.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

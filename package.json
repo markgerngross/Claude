@@ -1,0 +1,14 @@
+{
+  "name": "stuhl-tai-chi",
+  "version": "1.0.0",
+  "description": "Selbst-gehostete Stuhl-Tai-Chi-App: 28-Tage-Programm fuer Maenner 50+, mit virtuellem Trainingspartner. Laeuft auf deinem Server, im Browser auf iPhone/iPad.",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT"
+}
