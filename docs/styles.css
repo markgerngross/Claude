@@ -165,11 +165,19 @@ h2 { font-size: 17px; margin: 22px 0 10px; }
 .player { text-align: center; }
 .player .phase-name { font-size: 24px; font-weight: 800; margin: 10px 0 2px; }
 .player .phase-origin { color: var(--muted); font-size: 13px; margin-bottom: 14px; }
-.timer-ring { position: relative; width: 220px; height: 220px; margin: 8px auto 6px; }
+.figure-wrap {
+  background: linear-gradient(160deg, #eef3f0, #e3ece8);
+  border-radius: var(--radius);
+  padding: 4px;
+  margin: 6px auto 12px;
+  max-width: 280px;
+}
+.figure-svg { display: block; width: 100%; height: auto; }
+.timer-ring { position: relative; width: 160px; height: 160px; margin: 4px auto 6px; }
 .timer-ring svg { transform: rotate(-90deg); }
 .timer-ring .time {
   position: absolute; inset: 0; display: grid; place-items: center;
-  font-size: 44px; font-weight: 800; font-variant-numeric: tabular-nums;
+  font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums;
 }
 .howto { text-align: left; margin: 16px 0; }
 .howto li { margin-bottom: 8px; }

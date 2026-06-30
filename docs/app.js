@@ -301,7 +301,7 @@ function startSession(dayNumber) {
     const r = 100;
     const c = 2 * Math.PI * r;
     return `
-      <svg width="220" height="220" viewBox="0 0 220 220">
+      <svg width="100%" height="100%" viewBox="0 0 220 220">
         <circle cx="110" cy="110" r="${r}" fill="none" stroke="#e2e0d6" stroke-width="14"/>
         <circle cx="110" cy="110" r="${r}" fill="none" stroke="#c9a24b" stroke-width="14"
           stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - frac)}"/>
@@ -320,6 +320,7 @@ function startSession(dayNumber) {
         <span class="pill">Tag ${dayNumber} · Uebung ${idx + 1}/${day.blocks.length}</span>
         <div class="phase-name">${m.name}</div>
         <div class="phase-origin">${m.origin} · ${m.focus}</div>
+        <div class="figure-wrap">${window.buildFigureSVG(b.move)}</div>
         <div class="timer-ring">${drawRing(frac)}<div class="time">${fmtTime(remaining)}</div></div>
         <div class="progress-dots">${dots}</div>
         <div class="breath"><b>Atem:</b> ${m.breathing}</div>

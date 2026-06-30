@@ -1,12 +1,13 @@
 /* Service Worker: macht die App offline nutzbar und installierbar.
    Strategie: App-Schale (HTML/CSS/JS) cachen, API immer live vom Server. */
-const CACHE = 'stuhl-taichi-v1';
+const CACHE = 'stuhl-taichi-v2';
 const SHELL = [
   './',
   './index.html',
   './styles.css',
   './app.js',
   './program.js',
+  './figure.js',
   './manifest.webmanifest',
   './icon.svg',
 ];
