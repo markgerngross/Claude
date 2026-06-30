@@ -21,7 +21,26 @@ Offline-Nutzung.
   bleiben automatisch synchron
 - **Keine externen Dienste, keine Tracker, keine Abhängigkeiten**
 
-## Schnellstart
+## Wohin installieren? (VPS vs. Shared Hosting)
+
+| Umgebung | Funktioniert? | Anleitung |
+|---|---|---|
+| **VPS** (Root/SSH) | ✅ ideal | unten („Schnellstart" + „Dauerhaft laufen lassen") |
+| **Shared Hosting mit Node** (cPanel „Setup Node.js App", Plesk Node) | ✅ | `server.js` über das Node-Panel des Hosters starten |
+| **Klassisches Shared Hosting** (nur PHP/Apache, kein Node) | ✅ über PHP-Variante | siehe [`deploy-php/README.md`](deploy-php/README.md) |
+
+Eine **Subdomain** (z. B. `taichi.deine-domain.at`) ist auf allen drei Wegen
+möglich. Auf dem VPS setzt du dafür einen Reverse-Proxy davor – am einfachsten
+mit **Caddy**, das HTTPS automatisch besorgt:
+
+```caddy
+# /etc/caddy/Caddyfile
+taichi.deine-domain.at {
+    reverse_proxy 127.0.0.1:3000
+}
+```
+
+## Schnellstart (VPS / lokal)
 
 Voraussetzung: Node.js ≥ 18 (mehr nicht – keine npm-Pakete nötig).
 

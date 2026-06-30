@@ -1,0 +1,21 @@
+# Stuhl-Tai-Chi – Apache-Konfiguration fuer Shared Hosting
+# Diese Datei gehoert in den Wurzelordner der (Sub-)Domain.
+
+RewriteEngine On
+
+# Alle /api/-Anfragen auf das PHP-Backend leiten.
+RewriteRule ^api/.*$ api.php [L,QSA]
+
+# Optionaler Single-Page-Fallback: unbekannte Pfade auf index.html
+# (Verzeichnisse und vorhandene Dateien bleiben unberuehrt.)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteRule ^ index.html [L]
+
+# Datenordner vor direktem Zugriff schuetzen.
+RewriteRule ^app-data/ - [F]
+
+# Korrekter MIME-Typ fuer das PWA-Manifest.
+AddType application/manifest+json .webmanifest
+AddType image/svg+xml .svg

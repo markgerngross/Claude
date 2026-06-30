@@ -1,0 +1,6 @@
+# Direkten Zugriff auf die Fortschrittsdaten verbieten.
+Require all denied
+# Fallback fuer aeltere Apache-Versionen (2.2):
+<IfModule !mod_authz_core.c>
+  Deny from all
+</IfModule>
