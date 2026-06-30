@@ -1,0 +1,15 @@
+{
+  "name": "Stuhl Tai-Chi · 28 Tage",
+  "short_name": "Stuhl Tai-Chi",
+  "description": "Sanftes Stuhl-Tai-Chi im Sitzen: 28-Tage-Programm mit Trainingspartner.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f1ea",
+  "theme_color": "#2f5d50",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
