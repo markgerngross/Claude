@@ -60,6 +60,7 @@ a{color:inherit;text-decoration:none}
 
 /* Liste */
 .sec{margin:30px 20px 0}
+.sec--first{margin-top:26px}
 .sec h2{margin:0 0 10px 4px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold-text)}
 .list{background:var(--card);border:1px solid #E4DCCB;border-radius:18px;overflow:hidden}
 .list a{display:flex;align-items:center;gap:14px;padding:15px 16px;min-height:60px}
@@ -112,20 +113,23 @@ a{color:inherit;text-decoration:none}
   </a>
   <p class="hint">Speichert alle Daten direkt in deinen Kontakten.</p>
 
-  <nav class="quick" aria-label="Schnellkontakt">
-    <a href="tel:+491784411778">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 006.3 6.3l1.4-2.2L20 15.5V19a1.5 1.5 0 01-1.6 1.5A16.5 16.5 0 013.5 5.6 1.5 1.5 0 015 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      Anrufen
-    </a>
-    <a href="mailto:anfrage@markgerngross.com">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6h17v12h-17z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
-      E-Mail
-    </a>
-    <a href="https://termine.markgerngross.com/b/erstgespraech" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      Termin
-    </a>
-  </nav>
+  <section class="sec sec--first">
+    <h2>Direkt</h2>
+    <div class="list">
+      <a href="tel:+491784411778">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 006.3 6.3l1.4-2.2L20 15.5V19a1.5 1.5 0 01-1.6 1.5A16.5 16.5 0 013.5 5.6 1.5 1.5 0 015 4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+        <span class="txt"><b>0178 44 11 778</b><small>Mobil</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="mailto:anfrage@markgerngross.com">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6h17v12h-17z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+        <span class="txt"><b>anfrage@markgerngross.com</b><small>E-Mail · Julia antwortet sofort</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="https://termine.markgerngross.com/b/erstgespraech" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+        <span class="txt"><b>Kostenloses Erstgespräch</b><small>30 Minuten, direkt buchen</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </section>
 
   <section class="julia" aria-label="Julia, digitale Assistentin">
     <p class="julia__t">Frag <em>Julia.</em> Jetzt.</p>
@@ -160,24 +164,6 @@ a{color:inherit;text-decoration:none}
       <a href="https://launchmyagent.de" target="_blank" rel="noopener">
         <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14v10H10l-5 4z"/><path d="M9 11h.01M12 11h.01M15 11h.01" stroke-linecap="round" stroke-width="2.2"/></svg></span>
         <span class="txt"><b>LaunchMyAgent</b><small>Digitaler Empfang für Gastgeber und Unternehmer</small></span><span class="arr" aria-hidden="true">›</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="sec">
-    <h2>Direkt</h2>
-    <div class="list">
-      <a href="tel:+491784411778">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 006.3 6.3l1.4-2.2L20 15.5V19a1.5 1.5 0 01-1.6 1.5A16.5 16.5 0 013.5 5.6 1.5 1.5 0 015 4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-        <span class="txt"><b>0178 44 11 778</b><small>Mobil</small></span><span class="arr" aria-hidden="true">›</span>
-      </a>
-      <a href="mailto:anfrage@markgerngross.com">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6h17v12h-17z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-        <span class="txt"><b>anfrage@markgerngross.com</b><small>E-Mail · Julia antwortet sofort</small></span><span class="arr" aria-hidden="true">›</span>
-      </a>
-      <a href="https://termine.markgerngross.com/b/erstgespraech" target="_blank" rel="noopener">
-        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-        <span class="txt"><b>Kostenloses Erstgespräch</b><small>30 Minuten, direkt buchen</small></span><span class="arr" aria-hidden="true">›</span>
       </a>
     </div>
   </section>
