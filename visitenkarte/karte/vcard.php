@@ -31,7 +31,7 @@ $lines = [
     'X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/mark-gerngro%C3%9F/',
     'X-SOCIALPROFILE;TYPE=instagram:https://www.instagram.com/markgerngross.de/',
     'NOTE:KI für Hotellerie & Gastronomie aus dem Allgäu. IHK-zertifizierter KI-Manager. '
-        . 'Digitaler Empfang mit LaunchMyAgent. Julia (KI-Assistentin) antwortet sofort per WhatsApp: +49 175 8997115',
+        . 'Digitaler Empfang mit LaunchMyAgent. Julia (KI-Assistentin) antwortet sofort per WhatsApp (+49 175 8997115) und E-Mail (anfrage@markgerngross.com).',
 ];
 
 $photo = is_readable($photoPath) ? file_get_contents($photoPath) : false;
