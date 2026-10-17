@@ -1,0 +1,34 @@
+DIGITALE VISITENKARTE – INSTALLATION BEI ALL-INKL
+=================================================
+
+1) HOCHLADEN
+   - In KAS (kas.all-inkl.com) einloggen > FTP oder Dateimanager öffnen.
+   - In das Verzeichnis von markgerngross.com wechseln (dort, wo auch der Ordner "assets" liegt).
+   - Den kompletten Ordner "karte" hochladen (index.html, vcard.php, .htaccess).
+     Hinweis: .htaccess ist eine versteckte Datei. Im FTP-Programm ggf. "versteckte Dateien anzeigen" aktivieren.
+
+2) TESTEN
+   - Auf dem Handy https://markgerngross.com/karte/ öffnen.
+   - "Kontakt speichern" antippen:
+       iPhone: Es erscheint direkt die Kontaktkarte mit Foto > "Neuen Kontakt erstellen".
+       Android: Die Datei wird geladen > antippen > in Kontakte öffnen.
+   - Am besten mit einem iPhone UND einem Android-Gerät testen.
+
+3) AUFS IPHONE
+   Sperrbildschirm (empfohlen, kein Entsperren nötig):
+   - Datei "hintergrund/iphone-sperrbildschirm.png" aufs iPhone senden (AirDrop, Mail, iCloud).
+   - Fotos > Bild öffnen > Teilen > "Als Hintergrundbild verwenden".
+   - Den Perspektivenzoom ausschalten, damit der QR-Code nicht verschoben wird.
+
+   Homescreen (Alternative):
+   - "hintergrund/widget-quadrat.png" in Fotos speichern, in ein eigenes Album "Visitenkarte" legen.
+   - Homescreen lange drücken > "+" > Widget "Fotos" > Album "Visitenkarte" wählen.
+
+4) QR-CODE FÜR DRUCK, MESSE, E-MAIL-SIGNATUR
+   - qr/qr-visitenkarte.svg  (verlustfrei skalierbar, für Druck)
+   - qr/qr-visitenkarte.png  (für Präsentationen, Signatur, Social Media)
+
+DATEN ÄNDERN
+   - Texte und Links: karte/index.html
+   - Kontaktdaten, die gespeichert werden: karte/vcard.php
+   Der QR-Code bleibt gleich, weil er nur auf https://markgerngross.com/karte/ zeigt.

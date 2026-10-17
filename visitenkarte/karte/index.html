@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mark Gerngroß – Digitale Visitenkarte</title>
+<meta name="description" content="Kontakt speichern: Mark Gerngroß, KI für Hotellerie & Gastronomie aus dem Allgäu.">
+<meta name="robots" content="noindex, follow">
+<meta name="theme-color" content="#111827">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Mark Gerngroß – Digitale Visitenkarte">
+<meta property="og:description" content="KI für Hotellerie & Gastronomie. Kontakt mit einem Klick speichern.">
+<meta property="og:image" content="https://markgerngross.com/assets/img/og-default.jpg">
+<link rel="icon" type="image/png" href="/assets/img/favicon-32x32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<style>
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500 600;font-display:swap;src:url('/assets/fonts/cormorant-garamond-latin-var.woff2') format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:500 600;font-display:swap;src:url('/assets/fonts/cormorant-garamond-latin-var-italic.woff2') format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:400 700;font-display:swap;src:url('/assets/fonts/manrope-latin-var.woff2') format('woff2')}
+
+:root{
+  --navy:#111827; --navy-2:#1A2233; --line:#2A3345; --ivory:#F4F0E8; --card:#FAF9F6;
+  --text:#25272B; --text-2:#3A3D44; --muted:#A9B0BD;
+  --gold:#E1BC61; --gold-text:#8A6A24; --gold-icon:#C99A3E;
+  --serif:'Cormorant Garamond', Georgia, serif; --sans:'Manrope', system-ui, -apple-system, sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;min-height:100vh;background:var(--ivory);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+.page{max-width:480px;margin:0 auto;padding:0 0 40px}
+
+/* Kopf */
+.head{background:var(--navy);color:var(--card);padding:calc(28px + env(safe-area-inset-top)) 24px 52px;text-align:center;border-radius:0 0 28px 28px}
+.head__logo{height:40px;width:auto;margin:0 auto 26px;display:block}
+.photo{width:132px;height:132px;margin:0 auto;border-radius:50%;overflow:hidden;background:var(--navy-2);
+  box-shadow:0 0 0 2px var(--navy),0 0 0 4px rgba(225,188,97,.75),0 18px 36px rgba(0,0,0,.35);
+  display:flex;align-items:center;justify-content:center}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.photo span{font-family:var(--serif);font-size:52px;font-weight:600;color:var(--gold)}
+.name{margin:22px 0 0;font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.02;letter-spacing:-.01em}
+.role{margin:8px 0 0;font-size:15px;color:#C9CED8}
+.role em{font-style:normal;color:var(--gold)}
+.claim{margin:14px 0 0;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--gold)}
+
+/* Hauptbutton */
+.save{display:flex;align-items:center;justify-content:center;gap:10px;margin:-26px 20px 0;position:relative;
+  min-height:56px;padding:16px 24px;border-radius:999px;background:var(--gold);color:var(--navy);
+  font:700 17px/1.2 var(--sans);box-shadow:0 10px 24px rgba(17,24,39,.22)}
+.save:active{transform:translateY(1px)}
+.hint{margin:10px 24px 0;text-align:center;font-size:13px;color:var(--text-2)}
+
+/* Schnellkontakt */
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:26px 20px 0}
+.quick a{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 6px 14px;background:var(--card);
+  border:1px solid #E4DCCB;border-radius:16px;font-size:13px;font-weight:600}
+.quick svg{width:24px;height:24px;color:var(--gold-icon)}
+
+/* Liste */
+.sec{margin:30px 20px 0}
+.sec h2{margin:0 0 10px 4px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--gold-text)}
+.list{background:var(--card);border:1px solid #E4DCCB;border-radius:18px;overflow:hidden}
+.list a{display:flex;align-items:center;gap:14px;padding:15px 16px;min-height:60px}
+.list a+a{border-top:1px solid #ECE5D7}
+.ico{flex:none;width:38px;height:38px;border-radius:12px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center}
+.ico svg{width:19px;height:19px}
+.txt{flex:1;min-width:0}
+.txt b{display:block;font-size:15px;font-weight:700;color:var(--text)}
+.txt small{display:block;font-size:13px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.arr{flex:none;color:#B8AE99;font-size:18px}
+
+/* Julia-Box */
+.julia{margin:30px 20px 0;padding:22px 20px;background:var(--navy);color:var(--card);border-radius:20px}
+.julia p{margin:0}
+.julia__t{font-family:var(--serif);font-size:26px;font-weight:600;line-height:1.1}
+.julia__t em{color:var(--gold)}
+.julia__d{margin-top:8px!important;font-size:14px;color:#C9CED8}
+.julia__b{display:flex;gap:10px;margin-top:16px}
+.julia__b a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;border-radius:999px;font-weight:700;font-size:14.5px}
+.julia__b .wa{background:#25D366;color:#0B2E17}
+.julia__b .tg{border:1.5px solid var(--line);color:var(--card)}
+.julia__b svg{width:18px;height:18px}
+
+.share{display:flex;align-items:center;justify-content:center;gap:8px;margin:26px auto 0;padding:12px 20px;border:1.5px solid var(--text);border-radius:999px;background:transparent;color:var(--text);font:700 14.5px/1 var(--sans);cursor:pointer}
+.foot{margin:28px 20px 0;text-align:center;font-size:12.5px;color:#7B7F88}
+.foot a{text-decoration:underline}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="head">
+    <img class="head__logo" src="/assets/img/logo-footer.svg" alt="Mark Gerngroß – menschlich. digital. sicher." onerror="this.remove()">
+    <div class="photo">
+      <img src="/assets/img/neu/mark-rund.jpg" alt="Mark Gerngroß" width="132" height="132"
+           onerror="this.parentNode.innerHTML='<span>MG</span>'">
+    </div>
+    <h1 class="name">Mark Gerngroß</h1>
+    <p class="role">KI-Experte für <em>Hotellerie &amp; Gastronomie</em></p>
+    <p class="claim">IHK-zertifizierter KI-Manager</p>
+  </header>
+
+  <a class="save" href="vcard.php">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="8" r="3.6" stroke="currentColor" stroke-width="1.9"/><path d="M3.5 19.5c.8-3.4 3.4-5.2 6.5-5.2 1.4 0 2.6.3 3.7 1M18 13v7M14.5 16.5h7" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>
+    Kontakt speichern
+  </a>
+  <p class="hint">Speichert alle Daten direkt in deinen Kontakten.</p>
+
+  <nav class="quick" aria-label="Schnellkontakt">
+    <a href="tel:+491784411778">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 006.3 6.3l1.4-2.2L20 15.5V19a1.5 1.5 0 01-1.6 1.5A16.5 16.5 0 013.5 5.6 1.5 1.5 0 015 4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      Anrufen
+    </a>
+    <a href="mailto:anfrage@markgerngross.com">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6h17v12h-17z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      E-Mail
+    </a>
+    <a href="https://termine.markgerngross.com/b/erstgespraech" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      Termin
+    </a>
+  </nav>
+
+  <section class="julia" aria-label="Julia, digitale Assistentin">
+    <p class="julia__t">Frag <em>Julia.</em> Jetzt.</p>
+    <p class="julia__d">Meine KI-Assistentin antwortet sofort, rund um die Uhr. So erleben es auch die Gäste meiner Kunden.</p>
+    <div class="julia__b">
+      <a class="wa" href="https://wa.me/491758997115" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.39-1.47-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.62.71.23 1.36.2 1.87.12.57-.08 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35zM12.05 21.79h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.82 9.82 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88zm8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41z"/></svg>
+        WhatsApp
+      </a>
+      <a class="tg" href="https://t.me/MarkGerngrossBot" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.94 4.66 18.8 19.48c-.24 1.05-.86 1.31-1.74.82l-4.8-3.54-2.32 2.23c-.26.26-.47.47-.96.47l.34-4.88 8.88-8.02c.39-.34-.08-.53-.6-.19L6.62 13.27l-4.73-1.48c-1.03-.32-1.05-1.03.21-1.52l18.49-7.13c.86-.31 1.61.21 1.35 1.52z"/></svg>
+        Telegram
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Online</h2>
+    <div class="list">
+      <a href="https://www.linkedin.com/in/mark-gerngro%C3%9F/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg></span>
+        <span class="txt"><b>LinkedIn</b><small>Mark Gerngroß</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="https://www.instagram.com/markgerngross.de/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg></span>
+        <span class="txt"><b>Instagram</b><small>@markgerngross.de</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="https://markgerngross.com" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.5 3.5 5.3 3.5 8.5s-1.1 6-3.5 8.5c-2.4-2.5-3.5-5.3-3.5-8.5s1.1-6 3.5-8.5z"/></svg></span>
+        <span class="txt"><b>Website</b><small>markgerngross.com</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="https://launchmyagent.de" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14v10H10l-5 4z"/><path d="M9 11h.01M12 11h.01M15 11h.01" stroke-linecap="round" stroke-width="2.2"/></svg></span>
+        <span class="txt"><b>LaunchMyAgent</b><small>Digitaler Empfang für Gastgeber</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>Direkt</h2>
+    <div class="list">
+      <a href="tel:+491784411778">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 4h3.5l1.7 4.3-2.2 1.4a11 11 0 006.3 6.3l1.4-2.2L20 15.5V19a1.5 1.5 0 01-1.6 1.5A16.5 16.5 0 013.5 5.6 1.5 1.5 0 015 4z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+        <span class="txt"><b>0178 44 11 778</b><small>Mobil</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="mailto:anfrage@markgerngross.com">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.5 6h17v12h-17z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M3.5 6.5l8.5 6.5 8.5-6.5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
+        <span class="txt"><b>anfrage@markgerngross.com</b><small>E-Mail</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+      <a href="https://termine.markgerngross.com/b/erstgespraech" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+        <span class="txt"><b>Kostenloses Erstgespräch</b><small>30 Minuten, direkt buchen</small></span><span class="arr" aria-hidden="true">›</span>
+      </a>
+    </div>
+  </section>
+
+  <button class="share" type="button" id="share" hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 15V3.5M7.5 8 12 3.5 16.5 8M5 12v7.5h14V12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Visitenkarte weitergeben
+  </button>
+
+  <p class="foot">Mark Gerngroß · Sonthofen, Oberallgäu<br>
+    <a href="https://markgerngross.com/impressum">Impressum</a> · <a href="https://markgerngross.com/datenschutz">Datenschutz</a></p>
+</main>
+
+<script>
+(function () {
+  var b = document.getElementById('share');
+  if (!navigator.share) return;
+  b.hidden = false;
+  b.addEventListener('click', function () {
+    navigator.share({ title: 'Mark Gerngroß', text: 'Digitale Visitenkarte von Mark Gerngroß', url: 'https://markgerngross.com/karte/' }).catch(function () {});
+  });
+})();
+</script>
+</body>
+</html>

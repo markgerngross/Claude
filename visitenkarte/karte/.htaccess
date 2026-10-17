@@ -1,0 +1,12 @@
+# Digitale Visitenkarte /karte/
+DirectoryIndex index.html
+
+# Falls die statische Datei genutzt wird: richtiger Dateityp für vCards
+AddType text/vcard .vcf
+
+# Immer HTTPS
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
