@@ -33,14 +33,14 @@ a{color:inherit;text-decoration:none}
 .page{max-width:480px;margin:0 auto;padding:0 0 40px}
 
 /* Kopf */
-.head{background:var(--navy);color:var(--card);padding:calc(28px + env(safe-area-inset-top)) 24px 52px;text-align:center;border-radius:0 0 28px 28px}
-.head__logo{height:40px;width:auto;margin:0 auto 26px;display:block}
-.photo{width:132px;height:132px;margin:0 auto;border-radius:50%;overflow:hidden;background:var(--navy-2);
-  box-shadow:0 0 0 2px var(--navy),0 0 0 4px rgba(225,188,97,.75),0 18px 36px rgba(0,0,0,.35);
-  display:flex;align-items:center;justify-content:center}
-.photo img{width:100%;height:100%;object-fit:cover;display:block}
-.photo span{font-family:var(--serif);font-size:52px;font-weight:600;color:var(--gold)}
-.name{margin:22px 0 0;font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.02;letter-spacing:-.01em}
+.head{position:relative;background:var(--navy);color:var(--card);text-align:center;border-radius:0 0 28px 28px;overflow:hidden;padding-bottom:52px}
+.hero{position:relative;height:430px;background:var(--navy-2)}
+.hero picture,.hero img{display:block;width:100%;height:100%}
+.hero img{object-fit:cover;object-position:38% 18%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,24,39,.55) 0%,rgba(17,24,39,0) 22%,rgba(17,24,39,0) 52%,rgba(17,24,39,.85) 84%,#111827 100%)}
+.head__logo{position:absolute;z-index:2;top:calc(18px + env(safe-area-inset-top));left:20px;height:38px;width:auto;display:block}
+.head__text{position:relative;z-index:2;margin-top:-92px;padding:0 24px}
+.name{margin:0;font-family:var(--serif);font-weight:600;font-size:40px;line-height:1.02;letter-spacing:-.01em}
 .role{margin:8px 0 0;font-size:15px;color:#C9CED8}
 .role em{font-style:normal;color:var(--gold)}
 .claim{margin:14px 0 0;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:700;color:var(--gold)}
@@ -93,13 +93,17 @@ a{color:inherit;text-decoration:none}
 
   <header class="head">
     <img class="head__logo" src="https://markgerngross.com/assets/img/logo-footer.svg" alt="Mark Gerngroß – menschlich. digital. sicher." onerror="this.remove()">
-    <div class="photo">
-      <img src="https://markgerngross.com/assets/img/neu/mark-rund.jpg" alt="Mark Gerngroß" width="132" height="132"
-           onerror="if(!this.dataset.f){this.dataset.f=1;this.src='https://markgerngross.com/assets/img/neu/mark-mauer.jpg';this.style.objectPosition='62% 30%';}else{this.parentNode.innerHTML='<span>MG</span>';}">
+    <div class="hero">
+      <picture>
+        <source srcset="https://markgerngross.com/assets/img/neu/mark-mauer.webp" type="image/webp">
+        <img src="https://markgerngross.com/assets/img/neu/mark-mauer.jpg" alt="Mark Gerngroß lehnt mit verschränkten Armen an einer Backsteinwand" width="1600" height="1067">
+      </picture>
     </div>
-    <h1 class="name">Mark Gerngroß</h1>
-    <p class="role">KI-Experte für <em>Hotellerie &amp; Gastronomie</em></p>
-    <p class="claim">IHK-zertifizierter KI-Manager</p>
+    <div class="head__text">
+      <h1 class="name">Mark Gerngroß</h1>
+      <p class="role">KI-Experte für <em>Hotellerie &amp; Gastronomie</em></p>
+      <p class="claim">IHK-zertifizierter KI-Manager</p>
+    </div>
   </header>
 
   <a class="save" href="vcard.php">
