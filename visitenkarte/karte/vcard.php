@@ -34,8 +34,14 @@ $lines = [
         . 'Digitaler Empfang mit LaunchMyAgent. Julia (KI-Assistentin) antwortet sofort per WhatsApp: +49 175 8997115',
 ];
 
-if (is_readable($photoPath)) {
-    $lines[] = 'PHOTO;ENCODING=b;TYPE=JPEG:' . base64_encode(file_get_contents($photoPath));
+$photo = is_readable($photoPath) ? file_get_contents($photoPath) : false;
+if ($photo === false) {
+    // Fallback: Foto direkt von der Website laden
+    $ctx = stream_context_create(['http' => ['timeout' => 4]]);
+    $photo = @file_get_contents('https://markgerngross.com/assets/img/neu/mark-rund.jpg', false, $ctx);
+}
+if ($photo !== false && $photo !== '') {
+    $lines[] = 'PHOTO;ENCODING=b;TYPE=JPEG:' . base64_encode($photo);
 }
 
 $lines[] = 'REV:' . gmdate('Ymd\THis\Z');
